@@ -17,9 +17,11 @@ model User {
   id       Int     @id @default(autoincrement())
   name     String
   email    String  @unique
+  password String
   age      Int
   Course   Course? @relation(fields: [courseId], references: [id])
   courseId Int?
+  role     Role    @default(STUDENT)
 }
 
 model Course {
@@ -28,4 +30,10 @@ model Course {
   description String
   price       String
   users       User[]
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+  TEACHER
 }
