@@ -13,9 +13,12 @@ Use Postman to generate documentation from the API Postman Collection
 - [https://learning.postman.com/docs/publishing-your-api/api-documentation-overview/](https://learning.postman.com/docs/publishing-your-api/api-documentation-overview/)
 
 
+
+
+
 ## Software testing;
 The process of checking the;
-- quality, 
+- quality, +
 - functionality, 
 - and performance 
 of a software product before launching/deployment

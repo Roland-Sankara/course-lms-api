@@ -6,6 +6,7 @@ import {isAdmin} from "../helper-functions/middleware.js"
 const userRouter = express.Router();
 
 userRouter.get("/",[checkRequestForAuthToken, isAdmin],getUsers);
+// userRouter.get("/",getUsers);
 userRouter.post("/", createUser);
 userRouter.post("/login", userLogin);
 
