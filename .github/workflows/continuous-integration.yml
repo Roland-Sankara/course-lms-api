@@ -1,0 +1,43 @@
+name: Continuous-Integration
+
+on:
+    pull_request:
+        branches: [main]
+
+env:
+    DATABASE_URL: postgresql://postgres:roland@DB@localhost:5432/course-lms-db?schema=public
+    JWT_SECRET: very-long-secret-key
+    JWT_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTmV3IENlZHJpYyIsInVzZXJJZCI6NCwidXNlclJvbGUiOiJBRE1JTiIsImlhdCI6MTcxMzg5NjYyMSwiZXhwIjoxNzEzOTgzMDIxfQ.Anp-kvFlfbOSqurgYFI8TukQ2Yd9ivSN1bIjFXWCowA
+
+jobs:
+    testing-api:
+        runs-on: ubuntu-latest
+        
+        services:
+            postgres:
+                image: postgres:14-alpine
+                env:
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: roland@DB
+                    POSTGRES_DB: course-lms-db
+                ports:
+                    - 5432:5432
+
+        
+        steps:
+            - name: Checkout code into the runner
+              uses: actions/checkout@v4
+
+            - name: setup nodejs on the runner
+              uses: actions/setup-node@v4
+              with:
+                node-version: 18
+
+            - name: Install npm packages
+              run: npm ci
+
+            - name: Run migration files against DB
+              run: npx prisma migrate dev
+
+            - name: run the integration tests
+              run: npm test
