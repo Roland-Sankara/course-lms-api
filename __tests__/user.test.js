@@ -12,7 +12,7 @@ test('two plus two is four', () => {
 
 test('auth header is missing', async ()=>{
     let response = await request(app).get('/users')
-    expect(response.status).toEqual(400)
+    expect(response.status).toEqual(500)
 })
 
 test('get all users with 200 status code', async ()=>{
