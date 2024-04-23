@@ -8,7 +8,7 @@ async function createCourse(req,res){
     let course = await prisma.course.create({
         data: req.body
     })
-    res.status(StatusCodes.CREATED).json(course)
+    res.status(StatusCodes.CREATED).json({message: "course created", course})
 }
 
 export default createCourse;
